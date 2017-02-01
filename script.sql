@@ -21,6 +21,7 @@ insert into Users (name) values ('Curly');
 
 insert into Departments (name, managerId) values ('engineering', 2);
 insert into Departments (name, managerId) values ('hr', 2);
+insert into Departments (name) values ('admin');
 
 -- add curly to hr and engineering
 insert into Roles (userId, departmentId) values (3, 2);
@@ -50,3 +51,15 @@ from Users
 join Roles
 on Roles.userId = Users.id
 group by Users.name;
+
+-- get all users even if they are not managers
+select Users.name as userName, Departments.name as departmentName
+from Users
+left join Departments
+on Departments.managerId = Users.id;
+
+-- get all departments even if they are not managed
+select Users.name as userName, Departments.name as departmentName
+from Departments 
+left join Users 
+on Departments.managerId = Users.id;
